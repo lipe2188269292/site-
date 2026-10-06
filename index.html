@@ -1,0 +1,672 @@
+Claro — aqui está **direto no chat**, em um único arquivo HTML. É só copiar para `index.html` e abrir no navegador.
+
+ Magic Gravity — Site RPG em HTML
+
+```
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Magic Gravity | RPG</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    background: #030712;
+    overflow-x: hidden;
+}
+
+/* FUNDO */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background:
+        radial-gradient(circle at 15% 20%, #0066ff55, transparent 30%),
+        radial-gradient(circle at 85% 30%, #ff003355, transparent 30%),
+        linear-gradient(135deg, #02040a, #07152c, #12040b);
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    opacity: .12;
+    background-image:
+        linear-gradient(#ffffff 1px, transparent 1px),
+        linear-gradient(90deg, #ffffff 1px, transparent 1px);
+    background-size: 50px 50px;
+}
+
+/* NAVBAR */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 20px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #030712bb;
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid #ffffff18;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 3px;
+}
+
+.logo .blue {
+    color: #168cff;
+    text-shadow: 0 0 20px #168cff;
+}
+
+.logo .red {
+    color: #ff3155;
+    text-shadow: 0 0 20px #ff3155;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+nav a {
+    color: #bbb;
+    text-decoration: none;
+    transition: .3s;
+}
+
+nav a:hover {
+    color: white;
+}
+
+/* HERO */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 100px 20px;
+    position: relative;
+}
+
+.hero-content {
+    max-width: 900px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 9px 18px;
+    border: 1px solid #ffffff30;
+    border-radius: 50px;
+    color: #aaa;
+    margin-bottom: 25px;
+    background: #ffffff08;
+}
+
+h1 {
+    font-size: clamp(60px, 12vw, 150px);
+    line-height: .8;
+    font-weight: 1000;
+    letter-spacing: -8px;
+}
+
+.magic {
+    color: #168cff;
+    text-shadow:
+        0 0 20px #168cff,
+        0 0 60px #168cff88;
+}
+
+.gravity {
+    color: #ff3155;
+    text-shadow:
+        0 0 20px #ff3155,
+        0 0 60px #ff315588;
+}
+
+.hero p {
+    max-width: 650px;
+    margin: 35px auto;
+    color: #aab4c7;
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+/* BOTÕES */
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 15px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: .3s;
+}
+
+.btn:hover {
+    transform: translateY(-4px);
+}
+
+.blue-btn {
+    background: #168cff;
+    box-shadow: 0 0 30px #168cff55;
+}
+
+.red-btn {
+    background: #ff3155;
+    box-shadow: 0 0 30px #ff315555;
+}
+
+/* SEÇÕES */
+section {
+    padding: 100px 8%;
+}
+
+.title {
+    max-width: 750px;
+    margin-bottom: 50px;
+}
+
+.title h2 {
+    font-size: clamp(35px, 5vw, 65px);
+    margin-bottom: 15px;
+}
+
+.title p {
+    color: #9ca8bb;
+    line-height: 1.7;
+}
+
+/* CARDS */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.card {
+    position: relative;
+    padding: 35px;
+    min-height: 240px;
+    border-radius: 20px;
+    background: #081225bb;
+    border: 1px solid #ffffff12;
+    overflow: hidden;
+    transition: .3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: #168cff88;
+    box-shadow: 0 20px 50px #0008;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #168cff, #ff3155);
+}
+
+.icon {
+    font-size: 45px;
+    margin-bottom: 20px;
+}
+
+.card h3 {
+    font-size: 24px;
+    margin-bottom: 12px;
+}
+
+.card p {
+    color: #8f9bb0;
+    line-height: 1.6;
+}
+
+/* FACÇÕES */
+.factions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.faction {
+    position: relative;
+    min-height: 330px;
+    padding: 45px;
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+.azure {
+    background:
+        linear-gradient(135deg, #064b9cbb, #031126ee);
+    border: 1px solid #168cff66;
+}
+
+.rubra {
+    background:
+        linear-gradient(135deg, #8c0829bb, #1b0309ee);
+    border: 1px solid #ff315566;
+}
+
+.faction h3 {
+    font-size: 38px;
+    margin-bottom: 20px;
+}
+
+.faction p {
+    max-width: 500px;
+    color: #d2d8e4;
+    line-height: 1.7;
+}
+
+.orb {
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    right: -70px;
+    bottom: -80px;
+    border-radius: 50%;
+}
+
+.azure .orb {
+    background: #168cff;
+    box-shadow: 0 0 100px 50px #168cff;
+}
+
+.rubra .orb {
+    background: #ff3155;
+    box-shadow: 0 0 100px 50px #ff3155;
+}
+
+/* SISTEMA */
+.system {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.step {
+    padding: 30px;
+    background: #ffffff07;
+    border: 1px solid #ffffff12;
+    border-radius: 18px;
+}
+
+.number {
+    font-size: 45px;
+    font-weight: 900;
+    color: #168cff;
+}
+
+.step:nth-child(even) .number {
+    color: #ff3155;
+}
+
+.step h3 {
+    margin: 10px 0;
+}
+
+.step p {
+    color: #8e99aa;
+    line-height: 1.6;
+}
+
+/* CTA */
+.cta {
+    text-align: center;
+}
+
+.cta-box {
+    max-width: 900px;
+    margin: auto;
+    padding: 80px 30px;
+    border-radius: 30px;
+    background:
+        linear-gradient(135deg, #168cff18, #ff315518);
+    border: 1px solid #ffffff18;
+}
+
+.cta h2 {
+    font-size: clamp(40px, 6vw, 75px);
+    margin-bottom: 20px;
+}
+
+.cta p {
+    color: #9da8bb;
+    margin-bottom: 30px;
+}
+
+/* FOOTER */
+footer {
+    padding: 30px 8%;
+    border-top: 1px solid #ffffff12;
+    color: #647086;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* RESPONSIVO */
+@media(max-width: 800px) {
+
+    nav ul {
+        display: none;
+    }
+
+    .cards,
+    .factions,
+    .system {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        letter-spacing: -4px;
+    }
+
+    section {
+        padding: 80px 5%;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">
+        <span class="blue">MAGIC</span>
+        <span class="red">GRAVITY</span>
+    </div>
+
+    <ul>
+        <li><a href="#mundo">Mundo</a></li>
+        <li><a href="#sistema">Sistema</a></li>
+        <li><a href="#faccoes">Facções</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="tag">
+            RPG • FANTASIA • MAGIA
+        </div>
+
+        <h1>
+            <span class="magic">MAGIC</span><br>
+            <span class="gravity">GRAVITY</span>
+        </h1>
+
+        <p>
+            Um RPG onde magia e gravidade colidem.
+            Escolha seu poder, construa seu personagem,
+            enfrente criaturas lendárias e descubra um mundo
+            onde as leis da realidade foram quebradas.
+        </p>
+
+        <div class="buttons">
+            <a href="#mundo" class="btn blue-btn">
+                EXPLORAR O MUNDO
+            </a>
+
+            <a href="#faccoes" class="btn red-btn">
+                ESCOLHER FACÇÃO
+            </a>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- MUNDO -->
+<section id="mundo">
+
+    <div class="title">
+
+        <h2>
+            O mundo perdeu o equilíbrio.
+        </h2>
+
+        <p>
+            Séculos atrás, os Núcleos de Gravidade surgiram.
+            Desde então, cidades começaram a flutuar,
+            monstros apareceram de outras dimensões e magos
+            descobriram como manipular as próprias forças do universo.
+        </p>
+
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+
+            <div class="icon">🌌</div>
+
+            <h3>
+                Mundo Aberto
+            </h3>
+
+            <p>
+                Explore regiões misteriosas, cidades suspensas,
+                masmorras antigas e dimensões esquecidas.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="icon">⚔️</div>
+
+            <h3>
+                Combate
+            </h3>
+
+            <p>
+                Use armas, magia e manipulação gravitacional
+                para derrotar seus inimigos.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="icon">✨</div>
+
+            <h3>
+                Magia
+            </h3>
+
+            <p>
+                Combine diferentes poderes para criar
+                habilidades únicas.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- SISTEMA -->
+<section id="sistema">
+
+    <div class="title">
+
+        <h2>
+            Crie sua própria lenda.
+        </h2>
+
+        <p>
+            O sistema de Magic Gravity permite que cada jogador
+            tenha uma experiência diferente.
+        </p>
+
+    </div>
+
+    <div class="system">
+
+        <div class="step">
+            <div class="number">01</div>
+            <h3>CRIAR</h3>
+            <p>
+                Escolha sua raça, classe, poderes e origem.
+            </p>
+        </div>
+
+        <div class="step">
+            <div class="number">02</div>
+            <h3>EXPLORAR</h3>
+            <p>
+                Viaje pelo mundo e descubra seus segredos.
+            </p>
+        </div>
+
+        <div class="step">
+            <div class="number">03</div>
+            <h3>LUTAR</h3>
+            <p>
+                Enfrente monstros, chefes e outros jogadores.
+            </p>
+        </div>
+
+        <div class="step">
+            <div class="number">04</div>
+            <h3>EVOLUIR</h3>
+            <p>
+                Desbloqueie novas habilidades e torne-se lendário.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FACÇÕES -->
+<section id="faccoes">
+
+    <div class="title">
+
+        <h2>
+            Escolha seu lado.
+        </h2>
+
+        <p>
+            Duas grandes forças disputam o controle dos Núcleos.
+            Qual delas terá você?
+        </p>
+
+    </div>
+
+    <div class="factions">
+
+        <div class="faction azure">
+
+            <div class="orb"></div>
+
+            <h3>
+                ORDEM AZURE
+            </h3>
+
+            <p>
+                Guardiões do equilíbrio. A Ordem Azure acredita
+                que a magia deve ser usada para proteger o mundo.
+                Seus guerreiros são disciplinados e seus magos
+                dominam o controle gravitacional.
+            </p>
+
+        </div>
+
+        <div class="faction rubra">
+
+            <div class="orb"></div>
+
+            <h3>
+                LEGIÃO RUBRA
+            </h3>
+
+            <p>
+                Uma organização formada por guerreiros e magos
+                que desejam quebrar completamente as antigas
+                leis da realidade e construir um novo mundo.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FINAL -->
+<section class="cta">
+
+    <div class="cta-box">
+
+        <h2>
+            A gravidade está chamando.
+        </h2>
+
+        <p>
+            Seu personagem. Sua história. Seu destino.
+        </p>
+
+        <a href="#" class="btn blue-btn">
+            COMEÇAR A AVENTURA
+        </a>
+
+    </div>
+
+</section>
+
+<footer>
+
+    <span>
+        © 2026 Magic Gravity RPG
+    </span>
+
+    <span>
+        Magia • Gravidade • Aventura
+    </span>
+
+</footer>
+
+</body>
+</html>
